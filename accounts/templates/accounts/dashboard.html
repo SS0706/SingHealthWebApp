@@ -14,10 +14,16 @@
    <a class="btn btn-primary  btn-sm btn-block" href="{% url 'report' %}">Create Report</a>
    <table class="table table-sm">
     <tr>
-     <th></th>
      <th>Tenant</th>
      <th>Complaint</th>
     </tr>
+
+    {% for store in stores %}
+        <tr>
+            <td>{{store.name}}</td>
+            <td>{{store.complaint}}</td>
+        </tr>
+    {% endfor %}
 
    </table>
   </div>
@@ -36,6 +42,16 @@
      <th>Update</th>
      <th>Remove</th>
     </tr>
+
+    {% for order in orders %}
+        <tr>
+            <td>{{order.report}}</td>
+            <td>{{order.date_created}}</td>
+            <td>{{order.status}}</td>
+            <td><a class='btn btn-sm btn-info' href=''>Update</a></td>
+            <td><a class='btn btn-sm btn-danger' href=''>Remove</a></td>
+        </tr>
+    {% endfor %}
 
    </table>
   </div>
