@@ -16,11 +16,11 @@
                             <th>Description</th>
                         </tr>
 
-                        {% for i in stores %}
+                        {% for store in stores %}
 							<tr>
-								<td>{{i.name}}</td>
-								<td>{{i.category}}</td>
-								<td>{{i.description}}</td>
+								<td>{{store.name}}</td>
+								<td>{{store.category}}</td>
+								<td>{{store.description}}</td>
 							</tr>
 						{% endfor %}
 

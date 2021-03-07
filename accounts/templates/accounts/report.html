@@ -53,15 +53,22 @@
             <div class="card card-body">
                 <table class="table table-sm">
                     <tr>
-                        <th>Number</th>
-                        <th>Category</th>
                         <th>Description</th>
-                        <th>Status</th>
-                        <th>Update</th>
-                        <th>Remove</th>
+                        <th>Complied?</th>
                     </tr>
 
+                    {% for checklist in nonfbchecklist %}
+							<tr>
+								<td>{{checklist.checklist_item}}</td>
+								<td class="row justify-content-center">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault"></label>
+                                </td>
+							</tr>
+					{% endfor %}
+
                 </table>
+                <a class='btn btn-sm btn-info' href=''>Submit</a>
             </div>
         </div>
     </div>

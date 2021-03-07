@@ -36,10 +36,10 @@ class Store(models.Model):
 #TODO: merge report and order? because order basically extends report
 class Order(models.Model):
     STATUS = (
-                ('Notification Sent','Notification Sent'),
-                ('Pending', 'Pending'),
-                ('Completed', 'Completed'),
-            )
+        ('Notification Sent','Notification Sent'),
+        ('Pending', 'Pending'),
+        ('Completed', 'Completed'),
+    )
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
@@ -47,3 +47,10 @@ class Order(models.Model):
     
     def __str__(self):
         return self.report.name
+
+class NonFBChecklist(models.Model):
+    checklist_item = models.CharField(max_length=200, null=True)
+    
+    def __str__(self):
+        return self.checklist_item
+    

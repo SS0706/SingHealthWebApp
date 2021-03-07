@@ -13,11 +13,16 @@ def home(request):
     
     context = {'orders':orders, 'stores':stores, 'pending':pending}
     return render(request, 'accounts/dashboard.html', context)
+
 def stores(request):
     stores = Store.objects.all()
     
     return render(request, 'accounts/stores.html', {'stores':stores})
+
 def report(request):
-    return render(request, 'accounts/report.html')
+    nonfbchecklist = NonFBChecklist.objects.all()
+    
+    return render(request, 'accounts/report.html', {'nonfbchecklist':nonfbchecklist})
+
 def announcements(request):
     return render(request, 'accounts/announcements.html')
