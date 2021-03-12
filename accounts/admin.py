@@ -9,4 +9,5 @@ admin.site.register(Store)
 admin.site.register(Tag)
 admin.site.register(Order)
 admin.site.register(NonFBChecklist)
+admin.site.register(Announcement)
 

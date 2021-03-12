@@ -9,16 +9,20 @@
                     <h5>Announcements</h5>
                 </div>
                 <div class="card card-body">
-                    <table class="table">
+                <table class="table table-sm">
                         <tr>
-                            <th>announcement 1</th>
+                         <th>Date Created</th>
+                         <th>Title</th>
+                         <th>Announcement</th>
                         </tr>
-                        <td>announcement text here</td>
-
+            
+                    {% for announcement in announcements %}
                         <tr>
-                            <th>announcement 2</th>
+                        <td>{{announcement.date_created}}</td>
+                        <td>{{announcement.announcement_title}}</td>
+                        <td>{{announcement.announcement_text}}</td>
                         </tr>
-                        <td>announcement text here</td>
+                    {% endfor %}
 
                     </table>
                 </div>
