@@ -2,20 +2,32 @@ from django.db import models
 
 # Create your models here.
 
-class Report(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    phone = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-
-    def __str__(self):
-        return self.name
-
 class Tag(models.Model):
     name = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name
+
+class NonFBChecklist(models.Model):
+    checklist_item = models.CharField(max_length=200, null=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True) # not sure if we actually need this, can remove later
+
+    def __str__(self):
+        return self.checklist_item
+
+
+class Report(models.Model):
+    tenantName = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200, null=True)
+    issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)
+
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.tenantName#give name in the admin panel
+
 
 class Store(models.Model):
     CATEGORY = (
@@ -44,13 +56,13 @@ class Order(models.Model):
     report = models.ForeignKey(Report, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+    issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)
     
     def __str__(self):
-        return self.report.name
+        return self.report.tenantName
 
-class NonFBChecklist(models.Model):
-    checklist_item = models.CharField(max_length=200, null=True)
-    
-    def __str__(self):
-        return self.checklist_item
+
+
+
+
     
