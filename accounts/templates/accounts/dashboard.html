@@ -17,6 +17,7 @@
      <th>Tenant</th>
      <th>Rectification Needed</th>
      <th>Score</th>
+     <th>Next Audit</th>
     </tr>
 
     {% for store in stores %}
@@ -24,6 +25,7 @@
             <td>{{store.name}}</td>
             <td>{{store.rectificationNeeded}}</td>
             <td>{{store.score}}</td>
+            <td>{{store.audit_date}}</td>
         </tr>
     {% endfor %}
 

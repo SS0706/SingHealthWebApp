@@ -42,6 +42,7 @@ class Store(models.Model):
     #to be calculated
     score = models.CharField(max_length=200, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+    audit_date = models.DateField("dd/mm/yyyy", auto_now_add=False, null=True)
     tags = models.ManyToManyField(Tag, blank=True) # not sure if we actually need this, can remove later
     
     def __str__(self):
