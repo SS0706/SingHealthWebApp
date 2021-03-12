@@ -15,13 +15,15 @@
    <table class="table table-sm">
     <tr>
      <th>Tenant</th>
-     <th>Complaint</th>
+     <th>Rectification Needed</th>
+     <th>Score</th>
     </tr>
 
     {% for store in stores %}
         <tr>
             <td>{{store.name}}</td>
-            <td>{{store.complaint}}</td>
+            <td>{{store.rectificationNeeded}}</td>
+            <td>{{store.score}}</td>
         </tr>
     {% endfor %}
 

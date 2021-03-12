@@ -36,9 +36,11 @@ class Store(models.Model):
     )
     #TODO: change the below fields
     name = models.CharField(max_length=200, null=True)
-    complaint = models.BooleanField(null=True)
+    rectificationNeeded = models.BooleanField(null=True)
     category = models.CharField(max_length=200, null=True, choices=CATEGORY)
     description = models.CharField(max_length=200, null=True, blank=True)
+    #to be calculated
+    score = models.CharField(max_length=200, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True) # not sure if we actually need this, can remove later
     
