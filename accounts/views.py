@@ -1,57 +1,93 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import RectifyForm
-from .forms import CreateReportForm
+from .forms import *
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+
 
 def home(request):
     orders = Order.objects.all()
     stores = Store.objects.all()
-    
+
     total_orders = orders.count()
-    pending = orders.filter(Q(status='Pending')|Q(status='Notification Sent')).count()
-    
-    context = {'orders':orders, 'stores':stores, 'pending':pending}
+    pending = orders.filter(Q(status='Pending') | Q(
+        status='Notification Sent')).count()
+
+    context = {'orders': orders, 'stores': stores, 'pending': pending}
     return render(request, 'accounts/dashboard.html', context)
+
 
 def stores(request):
     stores = Store.objects.all()
-    
-    return render(request, 'accounts/stores.html', {'stores':stores})
+
+    return render(request, 'accounts/stores.html', {'stores': stores})
+
 
 def report(request):
     nonfbchecklist = NonFBChecklist.objects.all()
-    
-    return render(request, 'accounts/report.html', {'nonfbchecklist':nonfbchecklist})
+
+    return render(request, 'accounts/report.html', {'nonfbchecklist': nonfbchecklist})
+
 
 def announcements(request):
     announcements = Announcement.objects.all()
 
     return render(request, 'accounts/announcements.html', {'announcements': announcements})
 
-def loginPage(request):
-    return render(request, 'accounts/login.html')
 
-#create the form
 def registerPage(request):
-    form = UserCreationForm()
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        form = CreateUserForm()
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get('username')
+                messages.success(request, 'Account was created for ' + user)
 
-    context = {'form': form}
-    return render(request, 'accounts/register.html')
+                return redirect('login')
+
+        context = {'form': form}
+        return render(request, 'accounts/register.html', context)
+
+
+def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.info(request, 'Username OR password is incorrect')
+
+        context = {}
+        return render(request, 'accounts/login.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
 
 
 def createRectification(request):
     form = RectifyForm()
     if request.method == 'POST':
         #print('Printing POST')
-        #post data
+        # post data
         form = RectifyForm(request.POST)
         if form.is_valid():
             form.save()
@@ -60,11 +96,12 @@ def createRectification(request):
     context = {'form': form}
     return render(request, 'accounts/rectify_form.html', context)
 
+
 def createReport(request):
     form = CreateReportForm()
     if request.method == 'POST':
         #print('Printing POST')
-        #post data
+        # post data
         form = CreateReportForm(request.POST)
         if form.is_valid():
             form.save()
