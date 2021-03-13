@@ -36,15 +36,14 @@ class Store(models.Model):
         return self.name
 
 class Report(models.Model):
-    tenant_name = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
+    tenant_name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
     issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)
-
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.tenant_name#give name in the admin panel
+        return self.tenant_name #give name in the admin panel
 
 
 
@@ -63,7 +62,7 @@ class Order(models.Model):
     issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)
     
     def __str__(self):
-        return self.report.tenant_name
+        return self.store
 
 
 
