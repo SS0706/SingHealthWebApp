@@ -62,7 +62,7 @@ class Order(models.Model):
     issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)
     
     def __str__(self):
-        return self.store
+        return self.store.name
 
 
 
