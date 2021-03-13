@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .decorators import unauthenticated_user, allowed_users, admin_only
 # Create your views here.
 
 
@@ -34,12 +35,14 @@ def report(request):
     return render(request, 'accounts/report.html', {'nonfbchecklist': nonfbchecklist})
 
 
+@login_required(login_url='login')
 def announcements(request):
     announcements = Announcement.objects.all()
 
     return render(request, 'accounts/announcements.html', {'announcements': announcements})
 
 
+@unauthenticated_user
 def registerPage(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -58,6 +61,7 @@ def registerPage(request):
         return render(request, 'accounts/register.html', context)
 
 
+@unauthenticated_user
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('home')
