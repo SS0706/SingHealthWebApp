@@ -9,8 +9,9 @@ urlpatterns = [
 
     path('login/', views.loginPage, name='login'),
     path('register/', views.registerPage, name='register'),
+    path('logout/', views.logoutUser, name='logout'),
 
-    #forms
+    # forms
     path('createReport_form/', views.createReport, name='createReport_form'),
     path('rectify_form/', views.createRectification, name='rectify_form'),
 
