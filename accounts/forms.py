@@ -10,4 +10,4 @@ class RectifyForm(ModelForm):
 class CreateReportForm(ModelForm):
     class Meta:
         model = Report
-        fields =  '__all__'
+        fields =  ['tenant_name', 'issue']

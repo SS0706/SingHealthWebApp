@@ -28,7 +28,9 @@ def report(request):
     return render(request, 'accounts/report.html', {'nonfbchecklist':nonfbchecklist})
 
 def announcements(request):
-    return render(request, 'accounts/announcements.html')
+    announcements = Announcement.objects.all()
+
+    return render(request, 'accounts/announcements.html', {'announcements': announcements})
 
 def loginPage(request):
     return render(request, 'accounts/login.html')
