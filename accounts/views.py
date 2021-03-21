@@ -101,10 +101,11 @@ def createRectification(request):
 def createReport(request):
     form = CreateReportForm()
     if request.method == 'POST':
-        #print('Printing POST')
-        # post data
+        
         form = CreateReportForm(request.POST)
+        
         if form.is_valid():
+            total_checked = request.POST.getlist('submit').count() #trying to save data to database
             form.save()
             return redirect('/')
 
