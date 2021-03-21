@@ -1,4 +1,5 @@
 from django.db import models
+#from datetime import datetime, date
 
 # Create your models here.
 
@@ -16,6 +17,7 @@ class NonFBChecklist(models.Model):
     def __str__(self):
         return self.checklist_item
         
+#used as template for Create Report form
 class Store(models.Model):
     CATEGORY = (
         ('Food', 'Food'),
@@ -49,6 +51,7 @@ class Report(models.Model):
 
 
 #TODO: merge report and order? because order basically extends report Rectify
+#Used as template for Rectify Form
 class Order(models.Model):
     STATUS = (
         ('Notification Sent','Notification Sent'),
