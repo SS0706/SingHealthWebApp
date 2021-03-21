@@ -17,13 +17,21 @@ class NonFBChecklist(models.Model):
     def __str__(self):
         return self.checklist_item
 
-class CovidChecklist(models.Model):
+class CovidComplianceChecklist(models.Model):
     measures_item = models.CharField(max_length=200, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True) # not sure if we actually need this, can remove later
 
     def __str__(self):
         return self.measures_item
+
+class FBChecklist(models.Model):
+    item = models.CharField(max_length=200, null=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True) # not sure if we actually need this, can remove later
+
+    def __str__(self):
+        return self.item
         
 #used as template for Create Report form
 class Store(models.Model):
