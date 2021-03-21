@@ -36,8 +36,8 @@ class FBChecklist(models.Model):
 #used as template for Create Report form
 class Store(models.Model):
     CATEGORY = (
-        ('Food', 'Food'),
-        ('Fashion', 'Fashion')
+        ('FB', 'FB'),
+        ('Non-FB', 'Non-FB')
     )
     #TODO: change the below fields
     name = models.CharField(max_length=200, null=True)
@@ -49,7 +49,7 @@ class Store(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     audit_date = models.DateField("dd/mm/yyyy", auto_now_add=False, null=True)
     tags = models.ManyToManyField(Tag, blank=True) # not sure if we actually need this, can remove later
-    
+
     def __str__(self):
         return self.name
 
@@ -79,6 +79,11 @@ class Order(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)
+    # if (store.Store):
+    #     issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)
+    # else:
+    #     issue = models.ForeignKey(FBChecklist, null=True, on_delete=models.SET_NULL)
+    covid_compliance = models.ForeignKey(CovidComplianceChecklist, null=True, on_delete=models.SET_NULL)
     
     def __str__(self):
         return self.store.name
