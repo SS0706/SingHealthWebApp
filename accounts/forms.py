@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Order, Report, NonFBChecklist
+from .models import Order, Report, NonFBChecklist, CovidChecklist
 
 class RectifyForm(forms.ModelForm):
     class Meta:
