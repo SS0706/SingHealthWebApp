@@ -105,7 +105,7 @@ def createReport(request):
         form = CreateReportForm(request.POST)
         
         if form.is_valid():
-            total_checked = request.POST.getlist('submit').count() #trying to save data to database
+            #total_checked = request.POST.getlist('submit').len() # this doesnt work?
             form.save()
             return redirect('/')
 

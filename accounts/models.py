@@ -42,6 +42,8 @@ class Store(models.Model):
     )
     #TODO: change the below fields
     name = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True, blank=True)
+    email = models.CharField(max_length=200, null=True, blank=True)
     rectificationNeeded = models.BooleanField(null=True)
     category = models.CharField(max_length=200, null=True, choices=CATEGORY)
     description = models.CharField(max_length=200, null=True, blank=True)
@@ -57,9 +59,8 @@ class Store(models.Model):
 class Report(models.Model):
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
     report_number = models.CharField(max_length=200, null=True)
-    phone = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
-    issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)
+    total_checked = models.CharField(max_length=200, null=True)
+    issue = models.ManyToManyField(NonFBChecklist)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
