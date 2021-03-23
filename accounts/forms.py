@@ -8,11 +8,13 @@ class RectifyForm(forms.ModelForm):
     class Meta:
         model = Order
         fields =  '__all__'
+        file = forms.FileField()
 
 class CreateReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields =  ['store', 'report_number','issue']
+        
     
     def __init__(self, *args, **kwargs):
         super(CreateReportForm, self).__init__(*args, **kwargs)
