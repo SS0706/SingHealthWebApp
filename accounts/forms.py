@@ -8,6 +8,7 @@ class RectifyForm(forms.ModelForm):
     class Meta:
         model = Order
         fields =  '__all__'
+        file = forms.FileField()
 
 class CreateReportForm(forms.ModelForm):
     class Meta:

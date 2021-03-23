@@ -103,14 +103,17 @@ def createRectification(request):
 
 
 def createReport(request):
-    form = CreateReportForm()
     if request.method == 'POST':
         
-        form = CreateReportForm(request.POST)
-        
-        if form.is_valid():            
+        form = CreateReportForm(request.POST, request.FILES)
+        if form.is_valid():
+            #total_checked = request.POST.getlist('submit').len() # this doesnt work?
+            #instance = CreateReportForm(file_field=request.FILES['file'])
+            #instance.save()
             form.save()
             return redirect('/')
-
+    
+    else:
+        form = CreateReportForm()
     context = {'form': form}
     return render(request, 'accounts/createReport_form.html', context)

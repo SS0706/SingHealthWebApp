@@ -88,7 +88,7 @@ class Order(models.Model):
     #     issue = models.ForeignKey(FBChecklist, null=True, on_delete=models.SET_NULL)
     covid_compliance = models.ForeignKey(CovidComplianceChecklist, null=True, on_delete=models.SET_NULL)
     
-    uploaded_image = models.ImageField(null=True, blank=True)
+    upload_image = models.FileField(upload_to='uploads/')
     
     def __str__(self):
         return self.store.name
