@@ -12,7 +12,7 @@ class RectifyForm(forms.ModelForm):
 class CreateReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields =  ['tenant_name', 'issue']
+        fields =  ['store', 'issue']
     
     def __init__(self, *args, **kwargs):
         super(CreateReportForm, self).__init__(*args, **kwargs)
