@@ -41,7 +41,9 @@
    <table class="table table-sm">
     <tr>
      <th>Report No.</th>
+     <th>Tenant</th>
      <th>Issue</th>
+     <th>Covid Compliance Issue</th>
      <th>Date Updated</th>
      <th>Status</th>
     </tr>
@@ -49,7 +51,9 @@
     {% for order in orders %}
         <tr>
             <td>{{order.report}}</td>
+            <td>{{order.store}}</td>
             <td>{{order.issue}}</td>
+            <td>{{order.covid_compliance}}</td>
             <td>{{order.date_created}}</td>
             <td>{{order.status}}</td>
         </tr>
