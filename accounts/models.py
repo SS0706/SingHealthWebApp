@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 #from datetime import datetime, date
 
 # Create your models here.
@@ -84,6 +85,8 @@ class Order(models.Model):
     # else:
     #     issue = models.ForeignKey(FBChecklist, null=True, on_delete=models.SET_NULL)
     covid_compliance = models.ForeignKey(CovidComplianceChecklist, null=True, on_delete=models.SET_NULL)
+    
+    uploaded_image = models.ImageField(null=True, blank=True)
     
     def __str__(self):
         return self.store.name
