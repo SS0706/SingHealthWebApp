@@ -59,8 +59,8 @@ class Store(models.Model):
 class Report(models.Model):
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
     report_number = models.CharField(max_length=200, null=True)
-    total_checked = models.CharField(max_length=200, null=True)
-    issue = models.ManyToManyField(NonFBChecklist)
+    # total_checked = models.CharField(max_length=200, null=True) # probably dont need this, just sum up in the frontend bc i cant modify the queryset dict in backend
+    compliance = models.ManyToManyField(NonFBChecklist)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):

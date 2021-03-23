@@ -30,10 +30,14 @@ def stores(request):
     return render(request, 'accounts/stores.html', {'stores': stores})
 
 
-def report(request):
-    nonfbchecklist = NonFBChecklist.objects.all()
+def reports(request):
+    reports = Report.objects.all()
+    #TODO: fix total_score
+    #total_score = reports.filter('compliance').count()
+    total_score = 0
 
-    return render(request, 'accounts/report.html', {'nonfbchecklist': nonfbchecklist})
+    context = {'reports': reports, 'total_score': total_score}
+    return render(request, 'accounts/reports.html', context)
 
 
 def announcements(request):
@@ -104,8 +108,7 @@ def createReport(request):
         
         form = CreateReportForm(request.POST)
         
-        if form.is_valid():
-            #total_checked = request.POST.getlist('submit').len() # this doesnt work?
+        if form.is_valid():            
             form.save()
             return redirect('/')
 
