@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from datetime import datetime, date
 
 # Create your models here.
 
@@ -40,7 +39,7 @@ class Store(models.Model):
         ('FB', 'FB'),
         ('Non-FB', 'Non-FB')
     )
-    #TODO: change the below fields
+    
     name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True, blank=True)
     email = models.CharField(max_length=200, null=True, blank=True)
@@ -59,7 +58,6 @@ class Store(models.Model):
 class Report(models.Model):
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
     report_number = models.CharField(max_length=200, null=True)
-    # total_checked = models.CharField(max_length=200, null=True) # probably dont need this, just sum up in the frontend bc i cant modify the queryset dict in backend
     compliance = models.ManyToManyField(NonFBChecklist)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -69,14 +67,14 @@ class Report(models.Model):
 
 
 
-#TODO: merge report and order? because order basically extends report Rectify
-#Used as template for Rectify Form
+#TODO: rename to Rectify
 class Order(models.Model):
     STATUS = (
         ('Notification Sent','Notification Sent'),
         ('Pending', 'Pending'),
         ('Completed', 'Completed'),
     )
+    
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)

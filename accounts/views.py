@@ -33,9 +33,11 @@ def stores(request):
 
 def reports(request):
     reports = Report.objects.all()
+    print(reports)
     #TODO: fix total_score
-    #total_score = reports.filter('compliance').count()
+    #total_score = reports.compliance.all()
     total_score = 0
+    print(total_score)
 
     context = {'reports': reports, 'total_score': total_score}
     return render(request, 'accounts/reports.html', context)
@@ -108,8 +110,7 @@ def createReport(request):
         
         form = CreateReportForm(request.POST, request.FILES)
         if form.is_valid():
-            #total_checked = request.POST.getlist('submit').len() # this doesnt work?
-            uploaded_file = request.FILES['file'])
+            uploaded_file = request.FILES['file']
             #instance.save()
             form.save()
             return redirect('/')
