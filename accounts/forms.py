@@ -13,13 +13,12 @@ class RectifyForm(forms.ModelForm):
 class CreateReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields =  ['store', 'report_number','issue']
-        
+        fields =  ['store', 'report_number','compliance']
     
     def __init__(self, *args, **kwargs):
         super(CreateReportForm, self).__init__(*args, **kwargs)
-        self.fields['issue'].widget = forms.CheckboxSelectMultiple()
-        self.fields['issue'].queryset = NonFBChecklist.objects.all()
+        self.fields['compliance'].widget = forms.CheckboxSelectMultiple()
+        self.fields['compliance'].queryset = NonFBChecklist.objects.all()
     
 
 class CreateUserForm(UserCreationForm):
