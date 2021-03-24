@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'accounts',
+    'django_csv_exports',
 
 ]
 
@@ -131,3 +131,6 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+#exporting CSV needs permission or superuser
+DJANGO_EXPORTS_REQUIRE_PERM = True

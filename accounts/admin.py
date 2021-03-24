@@ -1,13 +1,9 @@
 from django.contrib import admin
-# from import_export.admin import ImportExportModelAdmin
 # Register your models here.
-from django.http import HttpResponse, HttpResponseForbidden
-from .actions import export_as_csv_action
 from .models import *
 
 class RectifyAdmin(admin.ModelAdmin):
-    list_display = ['store', 'report', 'date_created']
-    actions = [export_as_csv_action("CSV Export", fields=['wink','nudge'])]
+    fields = ['store', 'report', 'status', 'issue', 'covid_compliance']
 
 admin.site.register(Report)
 admin.site.register(Store)
