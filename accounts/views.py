@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, allowed_users, admin_only
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 
@@ -104,7 +105,7 @@ def createReport(request):
         form = CreateReportForm(request.POST, request.FILES)
         if form.is_valid():
             #total_checked = request.POST.getlist('submit').len() # this doesnt work?
-            #instance = CreateReportForm(file_field=request.FILES['file'])
+            uploaded_file = request.FILES['file'])
             #instance.save()
             form.save()
             return redirect('/')
