@@ -92,15 +92,13 @@ def logoutUser(request):
 
 
 def createRectification(request):
-    form = RectifyForm()
     if request.method == 'POST':
-        #print('Printing POST')
-        # post data
-        form = RectifyForm(request.POST)
+        form = RectifyForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/')
-
+    else:
+        form = RectifyForm()
     context = {'form': form}
     return render(request, 'accounts/rectify_form.html', context)
 
