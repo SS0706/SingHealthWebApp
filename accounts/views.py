@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.core.files.storage import FileSystemStorage
+from django.core.mail import send_mail, EmailMessage
 # Create your views here.
 
 
@@ -48,6 +49,20 @@ def announcements(request):
 
     return render(request, 'accounts/announcements.html', {'announcements': announcements})
 
+def send_email(request):
+    # if request.method == 'GET':
+        message =request.POST.get('message', '')
+        subject =request.POST.get('subject', '')
+        mail_id =request.POST.get('email', '')
+        email =EmailMessage(subject, message, 'esc.sutd@gmail.com', [mail_id])
+        email.content_subtype='html'
+        # file=open("README.md", "r")
+        # email.attach("README.md", file.read(), 'text/plain')
+        # file_upload =request.FILES['file']
+        # email.attach(filename, file_upload.read(), file_upload.content_type)
+        # email.send()
+        # HttpResponse("Sent")
+        return render(request, 'accounts/send_email.html', {'send_email': send_email})
 
 @unauthenticated_user
 def registerPage(request):
