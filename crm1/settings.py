@@ -134,3 +134,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 #exporting CSV needs permission or superuser
 DJANGO_EXPORTS_REQUIRE_PERM = True
+
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_HOST_USER='esc.sutd@gmail.com'
+EMAIL_HOST_PASSWORD='esc!@#$%'
+EMAIL_USE_TLS=True

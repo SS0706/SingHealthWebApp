@@ -6,9 +6,10 @@ from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.core.files.storage import FileSystemStorage
+from django.core.mail import send_mail, EmailMessage
 # Create your views here.
 
 
@@ -42,12 +43,29 @@ def reports(request):
     context = {'reports': reports, 'total_score': total_score}
     return render(request, 'accounts/reports.html', context)
 
+def statistics_page(request):
+    statistics_page = Statistics_page.objects.all()
+    return render(request, 'accounts/statistics_page.html', {'statistics_page': statistics_page})
 
 def announcements(request):
     announcements = Announcement.objects.all()
-
     return render(request, 'accounts/announcements.html', {'announcements': announcements})
 
+@user_passes_test(lambda u: u.is_superuser)
+def send_email(request):
+    # if request.method == 'GET':
+        message =request.POST.get('message', '')
+        subject =request.POST.get('subject', '')
+        mail_id =request.POST.get('email', '')
+        email =EmailMessage(subject, message, 'esc.sutd@gmail.com', [mail_id])
+        email.content_subtype='html'
+        # file=open("README.md", "r")
+        # email.attach("README.md", file.read(), 'text/plain')
+        # file_upload =request.FILES['file']
+        # email.attach(filename, file_upload.read(), file_upload.content_type)
+        # email.send()
+        # HttpResponse("Sent")
+        return render(request, 'accounts/send_email.html', {'send_email': send_email})
 
 @unauthenticated_user
 def registerPage(request):
@@ -92,15 +110,13 @@ def logoutUser(request):
 
 
 def createRectification(request):
-    form = RectifyForm()
     if request.method == 'POST':
-        #print('Printing POST')
-        # post data
-        form = RectifyForm(request.POST)
+        form = RectifyForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/')
-
+    else:
+        form = RectifyForm()
     context = {'form': form}
     return render(request, 'accounts/rectify_form.html', context)
 
