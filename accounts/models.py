@@ -101,6 +101,14 @@ class Announcement(models.Model):
     def __str__(self):
         return self.announcement_title
 
+class AuditScore(models.Model):
+    name = models.CharField(max_length=30)
+    score = models.FloatField()
+
+    def __str__(self):
+        return self.name
+    
+
 
 
     
