@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail, EmailMessage
@@ -43,12 +43,15 @@ def reports(request):
     context = {'reports': reports, 'total_score': total_score}
     return render(request, 'accounts/reports.html', context)
 
+def statistics_page(request):
+    statistics_page = Statistics_page.objects.all()
+    return render(request, 'accounts/statistics_page.html', {'statistics_page': statistics_page})
 
 def announcements(request):
     announcements = Announcement.objects.all()
-
     return render(request, 'accounts/announcements.html', {'announcements': announcements})
 
+@user_passes_test(lambda u: u.is_superuser)
 def send_email(request):
     # if request.method == 'GET':
         message =request.POST.get('message', '')
