@@ -2,13 +2,13 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Order, Report, NonFBChecklist, CovidComplianceChecklist, FBChecklist
+from .models import Order, NonFBReport, FBReport, CovidReport, NonFBChecklist, CovidComplianceChecklist, FBChecklist
 
 
 class RectifyForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['store', 'report', 'covid_compliance', 'issue', 'upload_image']
 
 class EmailForm(forms.Form):
     email = forms.EmailField()
@@ -16,16 +16,35 @@ class EmailForm(forms.Form):
     attach = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
     message = forms.CharField(widget = forms.Textarea)
 
-class CreateReportForm(forms.ModelForm):
+class CreateNonFBReportForm(forms.ModelForm):
     class Meta:
-        model = Report
+        model = NonFBReport
         fields = ['store', 'report_number', 'compliance']
 
     def __init__(self, *args, **kwargs):
-        super(CreateReportForm, self).__init__(*args, **kwargs)
+        super(CreateNonFBReportForm, self).__init__(*args, **kwargs)
         self.fields['compliance'].widget = forms.CheckboxSelectMultiple()
         self.fields['compliance'].queryset = NonFBChecklist.objects.all()
 
+class CreateFBReportForm(forms.ModelForm):
+    class Meta:
+        model = FBReport
+        fields = ['store', 'report_number', 'compliance']
+
+    def __init__(self, *args, **kwargs):
+        super(CreateFBReportForm, self).__init__(*args, **kwargs)
+        self.fields['compliance'].widget = forms.CheckboxSelectMultiple()
+        self.fields['compliance'].queryset = FBChecklist.objects.all()
+
+class CreateCovidReportForm(forms.ModelForm):
+    class Meta:
+        model = CovidReport
+        fields = ['store', 'report_number', 'compliance']
+
+    def __init__(self, *args, **kwargs):
+        super(CreateCovidReportForm, self).__init__(*args, **kwargs)
+        self.fields['compliance'].widget = forms.CheckboxSelectMultiple()
+        self.fields['compliance'].queryset = CovidComplianceChecklist.objects.all()
 
 class CreateUserForm(UserCreationForm):
     def clean(self):
