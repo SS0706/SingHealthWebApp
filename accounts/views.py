@@ -37,7 +37,7 @@ def reports(request):
     reports = Report.objects.all()
     print(reports)
     # TODO: fix total_score
-    #total_score = reports.compliance.all()
+    # total_score = reports.compliance.all()
     total_score = 0
     print(total_score)
 
@@ -79,11 +79,8 @@ def registerPage(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.cleaned_data.get('username').lower()
+            username = form.cleaned_data.get('username').lower()
             email = form.cleaned_data.get('email').lower()
-
-            group = Group.objects.get(name='admin')
-            user.groups.add(group)
 
             brk = True
 
@@ -97,12 +94,83 @@ def registerPage(request):
                 return redirect('login')
 
             user = form.save()
+
+            group = Group.objects.get(name='admin')
+            user.groups.add(group)
+
             messages.success(request, 'Account was created for ' + username)
 
             return redirect('login')
 
     context = {'form': form}
     return render(request, 'accounts/register.html', context)
+
+
+@unauthenticated_user
+def registerTenantPage(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username').lower()
+            email = form.cleaned_data.get('email').lower()
+
+            brk = True
+
+            try:
+                User.objects.get(username__iexact=username)
+            except:
+                brk = False
+
+            if brk:
+                messages.warning(request, 'Username already in use')
+                return redirect('login')
+
+            user = form.save()
+
+            group = Group.objects.get(name='tenant')
+            user.groups.add(group)
+
+            messages.success(request, 'Account was created for ' + username)
+
+            return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'accounts/registerTenant.html', context)
+
+
+@unauthenticated_user
+def registerAdminPage(request):
+
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username').lower()
+            email = form.cleaned_data.get('email').lower()
+
+            brk = True
+
+            try:
+                User.objects.get(username__iexact=username)
+            except:
+                brk = False
+
+            if brk:
+                messages.warning(request, 'Username already in use')
+                return redirect('login')
+
+            user = form.save()
+
+            group = Group.objects.get(name='admin')
+            user.groups.add(group)
+
+            messages.success(request, 'Account was created for ' + username)
+
+            return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'accounts/registerAdmin.html', context)
 
 
 @unauthenticated_user
