@@ -37,7 +37,7 @@ def stores(request):
 
 
 def reports(request):
-    reports = Report.objects.all()
+    reports = NonFBReport.objects.all()
     print(reports)
     #TODO: fix total_score
     #total_score = reports.compliance.all()
@@ -153,10 +153,10 @@ def createRectification(request):
     return render(request, 'accounts/rectify_form.html', context)
 
 
-def createReport(request):
+def createNonFBReport(request):
     if request.method == 'POST':
         
-        form = CreateReportForm(request.POST, request.FILES)
+        form = CreateNonFBReportForm(request.POST, request.FILES)
         if form.is_valid():
             # uploaded_file = request.FILES['file']
             #instance.save()
@@ -164,7 +164,36 @@ def createReport(request):
             return redirect('/')
     
     else:
-        form = CreateReportForm()
+        form = CreateNonFBReportForm()
     context = {'form': form}
     return render(request, 'accounts/createReport_form.html', context)
 
+def createFBReport(request):
+    if request.method == 'POST':
+        
+        form = CreateFBReportForm(request.POST, request.FILES)
+        if form.is_valid():
+            # uploaded_file = request.FILES['file']
+            #instance.save()
+            form.save()
+            return redirect('/')
+    
+    else:
+        form = CreateFBReportForm()
+    context = {'form': form}
+    return render(request, 'accounts/createReport_form.html', context)
+
+def createCovidReport(request):
+    if request.method == 'POST':
+        
+        form = CreateCovidReportForm(request.POST, request.FILES)
+        if form.is_valid():
+            # uploaded_file = request.FILES['file']
+            #instance.save()
+            form.save()
+            return redirect('/')
+    
+    else:
+        form = CreateCovidReportForm()
+    context = {'form': form}
+    return render(request, 'accounts/createReport_form.html', context)

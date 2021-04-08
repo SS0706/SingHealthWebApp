@@ -55,7 +55,7 @@ class Store(models.Model):
     def __str__(self):
         return self.name
 
-class Report(models.Model):
+class NonFBReport(models.Model):
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
     report_number = models.CharField(max_length=200, null=True)
     compliance = models.ManyToManyField(NonFBChecklist)
@@ -64,8 +64,23 @@ class Report(models.Model):
     def __str__(self):
         return self.report_number #give name in the admin panel
 
+class FBReport(models.Model):
+    store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
+    report_number = models.CharField(max_length=200, null=True)
+    compliance = models.ManyToManyField(FBChecklist)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
+    def __str__(self):
+        return self.report_number #give name in the admin panel
 
+class CovidReport(models.Model):
+    store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
+    report_number = models.CharField(max_length=200, null=True)
+    compliance = models.ManyToManyField(CovidComplianceChecklist)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.report_number #give name in the admin panel
 
 #TODO: rename to Rectify
 class Order(models.Model):
@@ -76,7 +91,8 @@ class Order(models.Model):
     )
     
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
-    report = models.ForeignKey(Report, null=True, on_delete=models.SET_NULL)
+    nonfbreport = models.ForeignKey(NonFBReport, null=True, on_delete=models.SET_NULL)
+    fbreport = models.ForeignKey(FBReport, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     issue = models.ForeignKey(NonFBChecklist, null=True, on_delete=models.SET_NULL)

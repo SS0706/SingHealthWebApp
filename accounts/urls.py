@@ -15,7 +15,9 @@ urlpatterns = [
     path('register/', views.registerPage, name='register'),
     path('logout/', views.logoutUser, name='logout'),
     # forms
-    path('createReport_form/', views.createReport, name='createReport_form'),
+    path('createNonFBReport_form/', views.createNonFBReport, name='createNonFBReport_form'),
+    path('createFBReport_form/', views.createFBReport, name='createFBReport_form'),
+    path('createCovidReport_form/', views.createCovidReport, name='createCovidReport_form'),
     path('rectify_form/', views.createRectification, name='rectify_form'),
 
 ]
