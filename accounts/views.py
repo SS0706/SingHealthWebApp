@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -35,7 +36,7 @@ def stores(request):
 def reports(request):
     reports = Report.objects.all()
     print(reports)
-    #TODO: fix total_score
+    # TODO: fix total_score
     #total_score = reports.compliance.all()
     total_score = 0
     print(total_score)
@@ -43,29 +44,33 @@ def reports(request):
     context = {'reports': reports, 'total_score': total_score}
     return render(request, 'accounts/reports.html', context)
 
+
 def statistics_page(request):
     statistics_page = Statistics_page.objects.all()
     return render(request, 'accounts/statistics_page.html', {'statistics_page': statistics_page})
+
 
 def announcements(request):
     announcements = Announcement.objects.all()
     return render(request, 'accounts/announcements.html', {'announcements': announcements})
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def send_email(request):
     # if request.method == 'GET':
-        message =request.POST.get('message', '')
-        subject =request.POST.get('subject', '')
-        mail_id =request.POST.get('email', '')
-        email =EmailMessage(subject, message, 'esc.sutd@gmail.com', [mail_id])
-        email.content_subtype='html'
-        # file=open("README.md", "r")
-        # email.attach("README.md", file.read(), 'text/plain')
-        # file_upload =request.FILES['file']
-        # email.attach(filename, file_upload.read(), file_upload.content_type)
-        # email.send()
-        # HttpResponse("Sent")
-        return render(request, 'accounts/send_email.html', {'send_email': send_email})
+    message = request.POST.get('message', '')
+    subject = request.POST.get('subject', '')
+    mail_id = request.POST.get('email', '')
+    email = EmailMessage(subject, message, 'esc.sutd@gmail.com', [mail_id])
+    email.content_subtype = 'html'
+    # file=open("README.md", "r")
+    # email.attach("README.md", file.read(), 'text/plain')
+    # file_upload =request.FILES['file']
+    # email.attach(filename, file_upload.read(), file_upload.content_type)
+    # email.send()
+    # HttpResponse("Sent")
+    return render(request, 'accounts/send_email.html', {'send_email': send_email})
+
 
 @unauthenticated_user
 def registerPage(request):
@@ -74,9 +79,24 @@ def registerPage(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
+            user = form.cleaned_data.get('username').lower()
+            email = form.cleaned_data.get('email').lower()
 
+            group = Group.objects.get(name='admin')
+            user.groups.add(group)
+
+            brk = True
+
+            try:
+                User.objects.get(username__iexact=username)
+            except:
+                brk = False
+
+            if brk:
+                messages.warning(request, 'Username already in use')
+                return redirect('login')
+
+            user = form.save()
             messages.success(request, 'Account was created for ' + username)
 
             return redirect('login')
@@ -123,16 +143,15 @@ def createRectification(request):
 
 def createReport(request):
     if request.method == 'POST':
-        
+
         form = CreateReportForm(request.POST, request.FILES)
         if form.is_valid():
             uploaded_file = request.FILES['file']
-            #instance.save()
+            # instance.save()
             form.save()
             return redirect('/')
-    
+
     else:
         form = CreateReportForm()
     context = {'form': form}
     return render(request, 'accounts/createReport_form.html', context)
-
