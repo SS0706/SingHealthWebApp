@@ -14,6 +14,7 @@ urlpatterns = [
     path('register/tenant/', views.registerTenantPage, name='registertenant'),
     path('register/', views.registerPage, name='register'),
     path('logout/', views.logoutUser, name='logout'),
+    path('restricted/', views.accessRestricted, name="restricted"),
 
     # forms
     path('createReport_form/', views.createReport, name='createReport_form'),
