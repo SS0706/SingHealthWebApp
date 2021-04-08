@@ -8,7 +8,7 @@ from .models import Order, NonFBReport, FBReport, CovidReport, NonFBChecklist, C
 class RectifyForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['store', 'report', 'covid_compliance', 'issue', 'upload_image']
+        fields = ['store', 'fbreport', 'nonfbreport', 'covid_compliance', 'issue', 'upload_image']
 
 class EmailForm(forms.Form):
     email = forms.EmailField()
