@@ -103,21 +103,77 @@ def EmailAttachementView(request):
 
 @unauthenticated_user
 def registerPage(request):
+    return render(request, 'accounts/register.html')
 
+
+@unauthenticated_user
+def registerTenantPage(request):
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
+            username = form.cleaned_data.get('username').lower()
+            email = form.cleaned_data.get('email').lower()
+
+            brk = True
+
+            try:
+                User.objects.get(username__iexact=username)
+            except:
+                brk = False
+
+            if brk:
+                messages.warning(request, 'Username already in use')
+                return redirect('login')
+
             user = form.save()
-            username = form.cleaned_data.get('username')
+
+            group = Group.objects.get(name='tenant')
+            user.groups.add(group)
 
             messages.success(request, 'Account was created for ' + username)
 
             return redirect('login')
 
     context = {'form': form}
-    return render(request, 'accounts/register.html', context)
+    return render(request, 'accounts/registerTenant.html', context)
 
+
+@unauthenticated_user
+def registerAdminPage(request):
+
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username').lower()
+            email = form.cleaned_data.get('email').lower()
+
+            brk = True
+
+            try:
+                User.objects.get(username__iexact=username)
+            except:
+                brk = False
+
+            if brk:
+                messages.warning(request, 'Username already in use')
+                return redirect('login')
+
+            user = form.save()
+
+            group = Group.objects.get(name='admin')
+            user.groups.add(group)
+
+            messages.success(request, 'Account was created for ' + username)
+
+            return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'accounts/registerAdmin.html', context)
+
+
+@unauthenticated_user
 
 @unauthenticated_user
 def loginPage(request):
@@ -207,3 +263,7 @@ class AccountChartView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['qs'] = AuditScore.objects.all()
         return context
+
+        
+def accessRestricted(request):
+    return render(request, 'accounts/restricted.html')
