@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail, EmailMessage
@@ -267,3 +268,9 @@ class AccountChartView(TemplateView):
         
 def accessRestricted(request):
     return render(request, 'accounts/restricted.html')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def testAccess(request):
+    return render(request, 'accounts/dashboard.html')

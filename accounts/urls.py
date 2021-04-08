@@ -25,8 +25,10 @@ urlpatterns = [
     path('createFBReport_form/', views.createFBReport, name='createFBReport_form'),
     path('createCovidReport_form/', views.createCovidReport, name='createCovidReport_form'),
     path('rectify_form/', views.createRectification, name='rectify_form'),
-    
+
     # charts
     path('chart/', AccountChartView.as_view(), name='chart'),
 
+    # test (delete later)
+    path('testAccess/', views.testAccess, name='testAccess'),
 ]
