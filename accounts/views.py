@@ -14,6 +14,8 @@ from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.views import View
+from django.views.generic import TemplateView
+from .models import AuditScore
 # Create your views here.
 
 
@@ -197,3 +199,11 @@ def createCovidReport(request):
         form = CreateCovidReportForm()
     context = {'form': form}
     return render(request, 'accounts/createReport_form.html', context)
+
+class AccountChartView(TemplateView):
+    template_name = 'accounts/chart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['qs'] = AuditScore.objects.all()
+        return context
