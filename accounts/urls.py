@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from accounts.views import AccountChartView
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -16,5 +17,7 @@ urlpatterns = [
     # forms
     path('createReport_form/', views.createReport, name='createReport_form'),
     path('rectify_form/', views.createRectification, name='rectify_form'),
+
+    path('chart/', AccountChartView.as_view(), name='chart'),
 
 ]
