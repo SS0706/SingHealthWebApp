@@ -14,6 +14,7 @@ urlpatterns = [
     #email with file
     path('send_email/', views.EmailAttachementView, name='send_email'),
     path('statistics_page/', views.statistics_page, name='statistics_page'),
+    
     path('login/', views.loginPage, name='login'),
     path('register/admin/', views.registerAdminPage, name='registeradmin'),
     path('register/tenant/', views.registerTenantPage, name='registertenant'),
