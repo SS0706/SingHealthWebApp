@@ -226,7 +226,7 @@ def createNonFBReport(request):
     
     else:
         form = CreateNonFBReportForm()
-    context = {'form': form}
+    context = {'form': form, 'pageTitle': 'Report - non-F&B'}
     return render(request, 'accounts/createReport_form.html', context)
 
 def createFBReport(request):
@@ -241,7 +241,7 @@ def createFBReport(request):
     
     else:
         form = CreateFBReportForm()
-    context = {'form': form}
+    context = {'form': form, 'pageTitle': 'Report - F&B'}
     return render(request, 'accounts/createReport_form.html', context)
 
 def createCovidReport(request):
@@ -256,7 +256,7 @@ def createCovidReport(request):
     
     else:
         form = CreateCovidReportForm()
-    context = {'form': form}
+    context = {'form': form, 'pageTitle': 'Report - Covid Compliance'}
     return render(request, 'accounts/createReport_form.html', context)
 
 class AccountChartView(TemplateView):

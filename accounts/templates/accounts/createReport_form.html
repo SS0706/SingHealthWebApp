@@ -4,12 +4,18 @@
 {% block title %} - Create Report{% endblock title %}
 
 {% block content %}
-
+<div>
+    <div style="margin: 20px 0px; color: #0069D9">
+    <h1>{{ pageTitle }}</h1>
+    </div>
+</div>
+<div style="padding-left: 10px;">
 <form action="" method="POST">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" name="submit">
 
 </form>
+</div>
 
 {% endblock %}
