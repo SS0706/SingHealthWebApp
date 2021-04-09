@@ -22,6 +22,9 @@ def allowed_users(allowed_roles=[]):
 
             if group in allowed_roles:
                 return view_func(request, *args, **kwargs)
+            
+            if request.user.is_staff:
+                return view_func(request, *args, **kwargs)
             else:
                 return redirect('restricted')
         return wrapper_func

@@ -33,7 +33,6 @@ def home(request):
     return render(request, 'accounts/dashboard.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
 def stores(request):
     stores = Store.objects.all()
 
@@ -259,6 +258,9 @@ def createCovidReport(request):
     context = {'form': form, 'pageTitle': 'Report - Covid Compliance'}
     return render(request, 'accounts/createReport_form.html', context)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 class AccountChartView(TemplateView):
     template_name = 'accounts/chart.html'
 
