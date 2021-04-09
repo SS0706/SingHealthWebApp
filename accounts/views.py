@@ -50,9 +50,9 @@ def reports(request):
     context = {'reports': reports, 'total_score': total_score}
     return render(request, 'accounts/reports.html', context)
 
-def statistics_page(request):
-    statistics_page = Statistics_page.objects.all()
-    return render(request, 'accounts/statistics_page.html', {'statistics_page': statistics_page})
+# def statistics_page(request):
+#     statistics_page = Statistics_page.objects.all()
+#     return render(request, 'accounts/stats.html', {'statistics_page': statistics_page})
 
 def announcements(request):
     announcements = Announcement.objects.all()
