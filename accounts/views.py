@@ -32,7 +32,8 @@ def home(request):
     context = {'orders': orders, 'stores': stores, 'pending': pending}
     return render(request, 'accounts/dashboard.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def stores(request):
     stores = Store.objects.all()
 
@@ -83,7 +84,8 @@ def announcements(request):
 
 #         return render(request, 'accounts/send_email.html', {'form': form})
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def EmailAttachementView(request):
     form = EmailForm(request.POST, request.FILES)
     if form.is_valid():
