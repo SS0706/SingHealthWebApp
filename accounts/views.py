@@ -32,6 +32,7 @@ def home(request):
     context = {'orders': orders, 'stores': stores, 'pending': pending}
     return render(request, 'accounts/dashboard.html', context)
 
+
 @login_required(login_url='login')
 def stores(request):
     stores = Store.objects.all()
@@ -42,7 +43,7 @@ def stores(request):
 def reports(request):
     reports = NonFBReport.objects.all()
     print(reports)
-    #TODO: fix total_score
+    # TODO: fix total_score
     #total_score = reports.compliance.all()
     total_score = 0
     print(total_score)
@@ -53,6 +54,7 @@ def reports(request):
 # def statistics_page(request):
 #     statistics_page = Statistics_page.objects.all()
 #     return render(request, 'accounts/stats.html', {'statistics_page': statistics_page})
+
 
 def announcements(request):
     announcements = Announcement.objects.all()
@@ -68,7 +70,7 @@ def announcements(request):
 #                 message = request.POST.get('message')
 #                 recipient = form.cleaned_data.get('email')
 #                 upload = request.FILES['upload']
-#                 send_mail(subject, 
+#                 send_mail(subject,
 #                 message, settings.EMAIL_HOST_USER, [recipient], fail_silently=True)
 #                 messages.success(request, 'Success!')
 #                 return redirect('/')
@@ -83,6 +85,7 @@ def announcements(request):
 
 #         return render(request, 'accounts/send_email.html', {'form': form})
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def EmailAttachementView(request):
@@ -93,15 +96,17 @@ def EmailAttachementView(request):
         email = form.cleaned_data['email']
         files = request.FILES.getlist('attach')
         try:
-            mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [email])
+            mail = EmailMessage(
+                subject, message, settings.EMAIL_HOST_USER, [email])
             for f in files:
                 mail.attach(f.name, f.read(), f.content_type)
             mail.send()
             return redirect('/')
-            return render(request, 'accounts/send_email.html', {'form': form, 'error_message': 'Sent email to %s'%email})
+            return render(request, 'accounts/send_email.html', {'form': form, 'error_message': 'Sent email to %s' % email})
         except:
             return render(request, 'send_email.html', {'form': form, 'error_message': 'Either the attachment is too big or corrupt'})
     return render(request, 'accounts/send_email.html', {'form': form, 'error_message': 'Unable to send email. Please try again later'})
+
 
 @unauthenticated_user
 def registerPage(request):
@@ -176,7 +181,6 @@ def registerAdminPage(request):
 
 
 @unauthenticated_user
-
 @unauthenticated_user
 def loginPage(request):
 
@@ -215,48 +219,51 @@ def createRectification(request):
 
 def createNonFBReport(request):
     if request.method == 'POST':
-        
+
         form = CreateNonFBReportForm(request.POST, request.FILES)
         if form.is_valid():
             # uploaded_file = request.FILES['file']
-            #instance.save()
+            # instance.save()
             form.save()
             return redirect('/')
-    
+
     else:
         form = CreateNonFBReportForm()
-    context = {'form': form, 'pageTitle': 'Report - non-F&B'}
+    context = {'form': form, 'pageTitle': 'Report — non-F&B'}
     return render(request, 'accounts/createReport_form.html', context)
+
 
 def createFBReport(request):
     if request.method == 'POST':
-        
+
         form = CreateFBReportForm(request.POST, request.FILES)
         if form.is_valid():
             # uploaded_file = request.FILES['file']
-            #instance.save()
+            # instance.save()
             form.save()
             return redirect('/')
-    
+
     else:
         form = CreateFBReportForm()
-    context = {'form': form, 'pageTitle': 'Report - F&B'}
+    context = {'form': form, 'pageTitle': 'Report — F&B'}
     return render(request, 'accounts/createReport_form.html', context)
+
 
 def createCovidReport(request):
     if request.method == 'POST':
-        
+
         form = CreateCovidReportForm(request.POST, request.FILES)
         if form.is_valid():
             # uploaded_file = request.FILES['file']
-            #instance.save()
+            # instance.save()
             form.save()
             return redirect('/')
-    
+
     else:
         form = CreateCovidReportForm()
-    context = {'form': form, 'pageTitle': 'Report - Covid Compliance'}
+    context = {'form': form, 'pageTitle': 'Report — Covid Compliance'}
     return render(request, 'accounts/createReport_form.html', context)
+
 
 class AccountChartView(TemplateView):
     template_name = 'accounts/chart.html'
@@ -266,7 +273,7 @@ class AccountChartView(TemplateView):
         context['qs'] = AuditScore.objects.all()
         return context
 
-        
+
 def accessRestricted(request):
     return render(request, 'accounts/restricted.html')
 

@@ -25,7 +25,7 @@ body,
 }
 
 button.btn-primary:focus {
-  background-color: #f6c27e;
+  background-color: #f6c27e !important;
   border-color: #eb6b00;
 }
 a.btn-primary {
