@@ -1,20 +1,22 @@
 {% load static %}
 
 <!-- Footer -->
-<footer class="bg-light text-center text-lg-start" style="margin-top: 50px;">
+<footer class="bg-light text-center text-lg-start" style="margin-top: 100px;">
 
     <!-- Grid container -->
     <div class="container p-4">
       <!--Grid row-->
+      <br>
       <div class="row">
         <!--Grid column-->
-        <div class="col-lg-6 col-md-12 mb-4 mb-md-0" style="padding-bottom: 20px;">
-          <h5 class="text-uppercase">SingHealth</h5>
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0" style="padding-bottom: 10px;">
+          <h5 class="text-uppercase">SingHealth's Purpose</h5>
   
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-            molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-            voluptatem veniam, est atque cumque eum delectus sint!
+            We are united by our common purpose to put ‘Patients. At the Heart of All We Do.’  
+            Our institutions may span from primary to acute care but the fundamental principle to 
+            place patients at the heart of all initiatives remains. We aim to ensure that they remain 
+            well-supported as they journey from one care setting to another.
           </p>
         </div>
         <!--Grid column-->
@@ -31,16 +33,16 @@
   
           <ul class="list-unstyled">
             <li>
-              <a href="#!" class="text-dark">Contact Us</a>
+              <a class="nav-link"href="{% url 'announcements' %}" class="text-dark">Contact Us</a>
             </li>
             <li>
-              <a href="#!" class="text-dark">Announcements</a>
+              <a class="nav-link" href="{% url 'announcements' %}">Announcements</a>
             </li>
             <li>
-              <a href="#!" class="text-dark">Directory</a>
+              <a class="nav-link" href="{% url 'stores' %}">Directory</a>
             </li>
             <li>
-              <a href="#!" class="text-dark">Help Desk Support</a>
+              <a class="nav-link" href="{% url 'announcements' %}" class="text-dark">Help Desk Support</a>
             </li>
           </ul>
         </div>
@@ -49,5 +51,7 @@
       <!--Grid row-->
     </div>
     <!-- Grid container -->
+    <img src="{% static 'images/SingHealth_WebApp_footer_image.png' %}" width="1050" style="margin-right: 100px;">
+
   </footer>
   <!-- Footer -->

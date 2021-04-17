@@ -19,7 +19,7 @@ class EmailForm(forms.Form):
 class CreateNonFBReportForm(forms.ModelForm):
     class Meta:
         model = NonFBReport
-        fields = ['store', 'report_number', 'compliance']
+        fields = ['store', 'report_number', 'compliance', 'score']
 
     def __init__(self, *args, **kwargs):
         super(CreateNonFBReportForm, self).__init__(*args, **kwargs)
@@ -29,7 +29,7 @@ class CreateNonFBReportForm(forms.ModelForm):
 class CreateFBReportForm(forms.ModelForm):
     class Meta:
         model = FBReport
-        fields = ['store', 'report_number', 'compliance']
+        fields = ['store', 'report_number', 'compliance', 'score']
 
     def __init__(self, *args, **kwargs):
         super(CreateFBReportForm, self).__init__(*args, **kwargs)
@@ -39,7 +39,7 @@ class CreateFBReportForm(forms.ModelForm):
 class CreateCovidReportForm(forms.ModelForm):
     class Meta:
         model = CovidReport
-        fields = ['store', 'report_number', 'compliance']
+        fields = ['store', 'report_number', 'compliance', 'score']
 
     def __init__(self, *args, **kwargs):
         super(CreateCovidReportForm, self).__init__(*args, **kwargs)
