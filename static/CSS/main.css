@@ -1,7 +1,8 @@
 #logo {
 }
-body {
-  background-color: #f8f4f4;
+body,
+.bg {
+  background-color: #fefdf8 !important;
 }
 #score {
   background-color: #f2a63c;
@@ -21,4 +22,13 @@ body {
 *.btn-primary:hover {
   background-color: #f6c27e;
   border-color: #eb6b00;
+}
+
+button.btn-primary:focus {
+  background-color: #f6c27e;
+  border-color: #eb6b00;
+}
+a.btn-primary {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
