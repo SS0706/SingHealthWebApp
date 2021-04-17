@@ -60,7 +60,6 @@ class NonFBReport(models.Model):
     report_number = models.CharField(max_length=200, null=True)
     compliance = models.ManyToManyField(NonFBChecklist)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-    score = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.report_number #give name in the admin panel
@@ -70,7 +69,6 @@ class FBReport(models.Model):
     report_number = models.CharField(max_length=200, null=True)
     compliance = models.ManyToManyField(FBChecklist)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-    score = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.report_number #give name in the admin panel
@@ -80,7 +78,6 @@ class CovidReport(models.Model):
     report_number = models.CharField(max_length=200, null=True)
     compliance = models.ManyToManyField(CovidComplianceChecklist)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-    score = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.report_number #give name in the admin panel
@@ -104,6 +101,7 @@ class Order(models.Model):
     # else:
     #     issue = models.ForeignKey(FBChecklist, null=True, on_delete=models.SET_NULL)
     covid_compliance = models.ForeignKey(CovidComplianceChecklist, null=True, on_delete=models.SET_NULL)
+    
     upload_image = models.FileField(upload_to='uploads/')
     
     def __str__(self):

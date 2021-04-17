@@ -14,7 +14,7 @@
                          <th>Report Number</th>
                          <th>Tenant</th>
                          <th>Date Created</th>
-                         <th>Report Score</th>
+                         <th>Total Score</th>
                         </tr>
             
                     {% for report in reports %}
@@ -22,7 +22,7 @@
                         <td>{{report.report_number}}</td>
                         <td>{{report.store.name}}</td>
                         <td>{{report.date_created}}</td>
-                        <td>{{report.score}}</td>
+                        <td>{{total_score}}</td>
                         </tr>
                     {% endfor %}
 
