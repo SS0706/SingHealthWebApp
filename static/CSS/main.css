@@ -1,14 +1,24 @@
-#logo{
-  }
-  body{
-   background-color: #f8f4f4;
-  }
-  #score{
-   background-color: #e86c04;
-  }
-  #AuditDay{
-   background-color: #e86c04;
-  }
-  #rectify{
-   background-color: #e86c04;
-  }
+#logo {
+}
+body {
+  background-color: #f8f4f4;
+}
+#score {
+  background-color: #f2a63c;
+}
+#AuditDay {
+  background-color: #f2a63c;
+}
+#rectify {
+  background-color: #f2a63c;
+}
+
+*.btn-primary {
+  background-color: #ff7705;
+  border-color: #eb6b00;
+}
+
+*.btn-primary:hover {
+  background-color: #f6c27e;
+  border-color: #eb6b00;
+}
