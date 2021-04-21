@@ -8,13 +8,17 @@ from .models import Order, NonFBReport, FBReport, CovidReport, NonFBChecklist, C
 class RectifyForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['store', 'fbreport', 'nonfbreport', 'covid_compliance', 'issue', 'upload_image']
+        fields = ['store', 'fbreport', 'nonfbreport',
+                  'covid_compliance', 'issue', 'upload_image']
+
 
 class EmailForm(forms.Form):
     email = forms.EmailField()
     subject = forms.CharField(max_length=100)
-    attach = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-    message = forms.CharField(widget = forms.Textarea)
+    attach = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    message = forms.CharField(widget=forms.Textarea)
+
 
 class CreateNonFBReportForm(forms.ModelForm):
     class Meta:
@@ -26,6 +30,7 @@ class CreateNonFBReportForm(forms.ModelForm):
         self.fields['compliance'].widget = forms.CheckboxSelectMultiple()
         self.fields['compliance'].queryset = NonFBChecklist.objects.all()
 
+
 class CreateFBReportForm(forms.ModelForm):
     class Meta:
         model = FBReport
@@ -36,6 +41,7 @@ class CreateFBReportForm(forms.ModelForm):
         self.fields['compliance'].widget = forms.CheckboxSelectMultiple()
         self.fields['compliance'].queryset = FBChecklist.objects.all()
 
+
 class CreateCovidReportForm(forms.ModelForm):
     class Meta:
         model = CovidReport
@@ -45,6 +51,7 @@ class CreateCovidReportForm(forms.ModelForm):
         super(CreateCovidReportForm, self).__init__(*args, **kwargs)
         self.fields['compliance'].widget = forms.CheckboxSelectMultiple()
         self.fields['compliance'].queryset = CovidComplianceChecklist.objects.all()
+
 
 class CreateUserForm(UserCreationForm):
     def clean(self):
