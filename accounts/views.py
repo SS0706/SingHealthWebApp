@@ -40,6 +40,7 @@ def stores(request):
     return render(request, 'accounts/stores.html', {'stores': stores})
 
 
+@login_required(login_url='login')
 def reports(request):
     reports = NonFBReport.objects.all()
     print(reports)
@@ -56,6 +57,7 @@ def reports(request):
 #     return render(request, 'accounts/stats.html', {'statistics_page': statistics_page})
 
 
+@login_required(login_url='login')
 def announcements(request):
     announcements = Announcement.objects.all()
     return render(request, 'accounts/announcements.html', {'announcements': announcements})
@@ -205,6 +207,7 @@ def logoutUser(request):
     return redirect('login')
 
 
+@login_required(login_url='login')
 def createRectification(request):
     if request.method == 'POST':
         form = RectifyForm(request.POST, request.FILES)
@@ -217,6 +220,7 @@ def createRectification(request):
     return render(request, 'accounts/rectify_form.html', context)
 
 
+@login_required(login_url='login')
 def createNonFBReport(request):
     if request.method == 'POST':
 
@@ -233,6 +237,7 @@ def createNonFBReport(request):
     return render(request, 'accounts/createReport_form.html', context)
 
 
+@login_required(login_url='login')
 def createFBReport(request):
     if request.method == 'POST':
 
@@ -249,6 +254,7 @@ def createFBReport(request):
     return render(request, 'accounts/createReport_form.html', context)
 
 
+@login_required(login_url='login')
 def createCovidReport(request):
     if request.method == 'POST':
 
@@ -274,6 +280,7 @@ class AccountChartView(TemplateView):
         return context
 
 
+@login_required(login_url='login')
 def accessRestricted(request):
     return render(request, 'accounts/restricted.html')
 
