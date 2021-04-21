@@ -271,6 +271,7 @@ def createCovidReport(request):
     return render(request, 'accounts/createReport_form.html', context)
 
 
+@login_required(login_url='login')
 class AccountChartView(TemplateView):
     template_name = 'accounts/chart.html'
 
