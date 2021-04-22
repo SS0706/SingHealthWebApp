@@ -109,10 +109,12 @@ class Order(models.Model):
     )
 
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL)
-    nonfbreport = models.ForeignKey(
+    Non_FB_Report = models.ForeignKey(
         NonFBReport, null=True, on_delete=models.SET_NULL)
-    fbreport = models.ForeignKey(
+    FB_Report = models.ForeignKey(
         FBReport, null=True, on_delete=models.SET_NULL)
+    Covid_Compliance_Report = models.ForeignKey(
+        CovidReport, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     issue = models.ForeignKey(
